@@ -1,4 +1,4 @@
-# React Project
+# Microservices React Project
 This project was generated whit https://vitejs.dev/guide/
 
 # Install Vite 

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { environment } from "../enviroments/enviroment.dev";
 import ReCAPTCHA from "react-google-recaptcha";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { helpHttp } from "../services/httpHelper";
+import MyGoogleAuth from "../services/authGoogle";
+import MyFacebookAuth from "../services/authFacebook";
+import { environment } from "../enviroments/enviroment.dev";
 import "bootstrap/dist/css/bootstrap.css";
 import "./login.css";
-import jwt_decode from "jwt-decode";
-import FacebookLogin from "react-facebook-login";
-import { helpHttp } from "../services/httpHelper";
+import LoginAuth from "../services/authLogin";
 
 export function Login() {
   const [typeText, setTypeText] = useState("password");
   const [eyePassword, setEyePassword] = useState("-slash");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const togglePasswordVisibility = () => {
     if (typeText === "password") {
@@ -26,17 +28,12 @@ export function Login() {
     console.log("Captcha value:", value);
   };
 
-  const onSuccessGoogle = (credentialResponse) => {
-    var credentialResponseDecode = jwt_decode(credentialResponse.credential);
-    console.log(credentialResponseDecode);
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
   };
 
-  const onErrorGoogle = () => {
-    console.log("Login Failed");
-  };
-
-  const responseFacebook = (response) => {
-    console.log(response);
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -44,7 +41,7 @@ export function Login() {
     alert("Enviando Form!");
     helpHttp()
       .post(
-        "https://localhost:7137/Login?userName=dasapibu@gmail.com&password=admin123",
+        `https://localhost:7137/Login?userName=${email}&password=${password}`,
         {}
       )
       .then((response) => {
@@ -53,68 +50,29 @@ export function Login() {
   };
 
   return (
-    <div className="principalContainer">
-      <div className="contenedorLogin">
-        <div className="divFormulario">
-          <h2 className="textLogin">Iniciar Sesión</h2>
-          <div className="form">
-            <form className="login-form">
-              <input
-                type="email"
-                name="email"
-                placeholder="Correo electronico"
-                className="form-control"
-                id="email"
-              />
-              <input
-                type={typeText}
-                name="password"
-                placeholder="Contraseña"
-                className="form-control"
-                id="password"
-              />
-              <i
-                className={`fa-lg fa-sharp fa-solid fa-eye${eyePassword}`}
-                id="iconEyeSlash"
-                onClick={togglePasswordVisibility}
-              ></i>
-              <p className="msg-forgot-password">
-                <a href="#">Olvido su contraseña?</a>
-              </p>
-
-              <div onClick={handleSubmit} className="btn-login">
-                Entrar
-              </div>
-              <button className="btn-login">Registrarse</button>
-              <ReCAPTCHA
-                id="gwd-reCAPTCHA_2"
-                sitekey={environment.recaptcha.siteKey}
-                onChange={onChangeCaptcha}
-              />
-              <hr></hr>
-              <GoogleOAuthProvider clientId={environment.google_ID_API}>
-                <GoogleLogin
-                  text="continue_with"
-                  locale="es_ES"
-                  onSuccess={onSuccessGoogle}
-                  onError={onErrorGoogle}
-                  size="large"
+    <>
+      <div className="principalContainer">
+        <div className="contenedorLogin">
+          <div className="divFormulario">
+            <h2 className="textLogin">Iniciar Sesión</h2>
+            <div className="form">
+              <form className="login-form">
+                <LoginAuth />
+                <button className="btn-login">Registrarse</button>
+                <ReCAPTCHA
+                  id="gwd-reCAPTCHA_2"
+                  sitekey={environment.recaptcha.siteKey}
+                  onChange={onChangeCaptcha}
                 />
-              </GoogleOAuthProvider>
-
-              <FacebookLogin
-                appId={environment.facebook_ID_API}
-                autoLoad={false}
-                fields="name,email,picture"
-                callback={responseFacebook}
-                icon="fa-facebook"
-                cssClass="btn-facebook"
-              />
-            </form>
+                <hr></hr>
+                <MyGoogleAuth />
+                <MyFacebookAuth />
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -11,7 +11,7 @@ function Login() {
   const [typeText, setTypeText] = useState("password");
   const [eyePassword, setEyePassword] = useState("-slash");
 
-  const changeTypeText = () => {
+  const togglePasswordVisibility = () => {
     if (typeText === "password") {
       setTypeText("text");
       setEyePassword("");
@@ -62,7 +62,7 @@ function Login() {
               <i
                 className={`fa-lg fa-sharp fa-solid fa-eye${eyePassword}`}
                 id="iconEyeSlash"
-                onClick={changeTypeText}
+                onClick={togglePasswordVisibility}
               ></i>
               <p className="msg-forgot-password">
                 <a href="#">Olvido su contraseña?</a>

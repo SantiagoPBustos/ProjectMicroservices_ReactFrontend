@@ -8,7 +8,7 @@ import jwt_decode from "jwt-decode";
 import FacebookLogin from "react-facebook-login";
 import { helpHttp } from "../services/httpHelper";
 
-function Login() {
+export function Login() {
   const [typeText, setTypeText] = useState("password");
   const [eyePassword, setEyePassword] = useState("-slash");
 

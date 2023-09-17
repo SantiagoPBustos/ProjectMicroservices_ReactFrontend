@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./login.css";
 import jwt_decode from "jwt-decode";
 import FacebookLogin from "react-facebook-login";
+import { helpHttp } from "../../services/httpHelper";
 
 function Login() {
   const [typeText, setTypeText] = useState("password");
@@ -38,6 +39,18 @@ function Login() {
     console.log(response);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Enviando Form!");
+    helpHttp()
+      .post(
+        "https://localhost:7137/Login?userName=dasapibu@gmail.com&password=admin123",{})
+      .then((response) => {
+        console.log(response);
+        
+      });
+  };
+
   return (
     <div className="principalContainer">
       <div className="contenedorLogin">
@@ -68,7 +81,9 @@ function Login() {
                 <a href="#">Olvido su contraseña?</a>
               </p>
 
-              <button className="btn-login">Entrar</button>
+              <div onClick={handleSubmit} className="btn-login">
+                Entrar
+              </div>
               <button className="btn-login">Registrarse</button>
               <div id="gwd-reCAPTCHA_2">
                 <ReCAPTCHA

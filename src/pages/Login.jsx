@@ -44,7 +44,9 @@ export function Login() {
     alert("Enviando Form!");
     helpHttp()
       .post(
-        "https://localhost:7137/Login?userName=dasapibu@gmail.com&password=admin123",{})
+        "https://localhost:7137/Login?userName=dasapibu@gmail.com&password=admin123",
+        {}
+      )
       .then((response) => {
         console.log(response);
       });
@@ -84,12 +86,11 @@ export function Login() {
                 Entrar
               </div>
               <button className="btn-login">Registrarse</button>
-              <div id="gwd-reCAPTCHA_2">
-                <ReCAPTCHA
-                  sitekey={environment.recaptcha.siteKey}
-                  onChange={onChangeCaptcha}
-                />
-              </div>
+              <ReCAPTCHA
+                id="gwd-reCAPTCHA_2"
+                sitekey={environment.recaptcha.siteKey}
+                onChange={onChangeCaptcha}
+              />
               <hr></hr>
               <GoogleOAuthProvider clientId={environment.google_ID_API}>
                 <GoogleLogin

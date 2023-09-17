@@ -13,7 +13,6 @@ function App() {
         
           <Route path="/User_Log_In" element={<Navigate to={"/Home"}/>} />
 
-          
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>

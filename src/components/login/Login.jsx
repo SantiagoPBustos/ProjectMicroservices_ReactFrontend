@@ -47,7 +47,6 @@ function Login() {
         "https://localhost:7137/Login?userName=dasapibu@gmail.com&password=admin123",{})
       .then((response) => {
         console.log(response);
-        
       });
   };
 
@@ -110,6 +109,9 @@ function Login() {
                 icon="fa-facebook"
                 cssClass="btn-facebook"
               />
+
+
+
             </form>
           </div>
         </div>

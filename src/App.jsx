@@ -1,11 +1,16 @@
-import Login from './components/login/Login.jsx'
+import Login from "./pages/Login.jsx";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   return (
     <>
-    <Login></Login>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login/>}/>
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

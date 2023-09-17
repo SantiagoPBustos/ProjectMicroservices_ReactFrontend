@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { environment } from "../../enviroments/enviroment.dev";
+import { environment } from "../enviroments/enviroment.dev";
 import ReCAPTCHA from "react-google-recaptcha";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import "bootstrap/dist/css/bootstrap.css";
 import "./login.css";
 import jwt_decode from "jwt-decode";
 import FacebookLogin from "react-facebook-login";
-import { helpHttp } from "../../services/httpHelper";
+import { helpHttp } from "../services/httpHelper";
 
 function Login() {
   const [typeText, setTypeText] = useState("password");
@@ -109,9 +109,6 @@ function Login() {
                 icon="fa-facebook"
                 cssClass="btn-facebook"
               />
-
-
-
             </form>
           </div>
         </div>

@@ -10,7 +10,7 @@ hr{
 
 .principalContainer {
     width: 100%;
-    background-image: url(../../assets/bg-login.jpg);
+    background-image: url(../assets/bg-login.jpg);
     background-size: cover;
     height: 100vh;
 }

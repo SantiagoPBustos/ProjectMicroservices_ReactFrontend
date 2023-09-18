@@ -10,7 +10,11 @@ export function AppRouter() {
       <Routes>
         <Route path="/" element={<Navbar />} />
         <Route index element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        {localStorage.token !== "" ? (
+          <Route path="/Home" element={<Home />} />
+        ) : (
+          <Route index element={<Login />} />
+        )}
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>

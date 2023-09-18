@@ -21,12 +21,13 @@ export const helpHttp = () => {
         res.ok
           ? res.json()
           : Promise.reject({
-              err: true,
-              status: res.status || "00",
-              statusText: res.statusText || "Ocurrió un error",
+              token: "",
+              username: "",
+              error: true,
+              status: res.status || "000",
             })
       )
-      .catch((err) => err);
+      .catch((error) => error);
   };
 
   const get = (url, options = {}) => customFetch(url, options);

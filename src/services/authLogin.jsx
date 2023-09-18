@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { helpHttp } from "../services/httpHelper";
+import { environment } from "../enviroments/enviroment.dev";
 import "bootstrap/dist/css/bootstrap.css";
-import "../pages/Login.css";
+import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
 
 function LoginAuth() {
   const [typeText, setTypeText] = useState("password");
@@ -27,17 +29,26 @@ function LoginAuth() {
     setPassword(e.target.value);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Enviando Form!");
-    helpHttp()
-      .post(
-        `https://localhost:7137/Login?userName=${email}&password=${password}`,
-        {}
-      )
-      .then((response) => {
-        console.log(response);
-      });
+    try {
+      e.preventDefault();
+      helpHttp()
+        .post(
+          `${environment.endpoint}/Login?userName=${email}&password=${password}`
+        )
+        .then((response) => {
+          console.log(response)
+          if (response.token !== "" && response.username !== "") {
+            localStorage.setItem("token", response.token);
+            localStorage.setItem("username", response.username);
+            navigate('/Home')
+          }else {
+            navigate('')
+          }
+        });
+    } catch (error) {}
   };
 
   return (
@@ -57,6 +68,7 @@ function LoginAuth() {
         className="form-control"
         id="password"
         onChange={handleChangePassword}
+        autoComplete="off"
       />
       <i
         className={`fa-lg fa-sharp fa-solid fa-eye${eyePassword}`}
@@ -67,9 +79,9 @@ function LoginAuth() {
         <a href="#">Olvido su contraseña?</a>
       </p>
 
-      <div onClick={handleSubmit} className="btn-login">
+      <button onClick={handleSubmit} className="btn-login">
         Entrar
-      </div>
+      </button>
     </>
   );
 }

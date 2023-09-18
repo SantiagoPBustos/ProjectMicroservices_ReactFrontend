@@ -1,53 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { helpHttp } from "../services/httpHelper";
 import MyGoogleAuth from "../services/authGoogle";
 import MyFacebookAuth from "../services/authFacebook";
-import { environment } from "../enviroments/enviroment.dev";
-import "bootstrap/dist/css/bootstrap.css";
-import "./login.css";
 import LoginAuth from "../services/authLogin";
 import AuthRegister from "../services/authRegister";
+import { environment } from "../enviroments/enviroment.dev";
+import "bootstrap/dist/css/bootstrap.css";
+import "../styles/Login.css";
 
 export function Login() {
-  const [typeText, setTypeText] = useState("password");
-  const [eyePassword, setEyePassword] = useState("-slash");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const togglePasswordVisibility = () => {
-    if (typeText === "password") {
-      setTypeText("text");
-      setEyePassword("");
-    } else {
-      setTypeText("password");
-      setEyePassword("-slash");
-    }
-  };
-
   const onChangeCaptcha = (value) => {
     console.log("Captcha value:", value);
-  };
-
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Enviando Form!");
-    helpHttp()
-      .post(
-        `https://localhost:7137/Login?userName=${email}&password=${password}`,
-        {}
-      )
-      .then((response) => {
-        console.log(response);
-      });
   };
 
   return (

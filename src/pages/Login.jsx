@@ -7,6 +7,7 @@ import { environment } from "../enviroments/enviroment.dev";
 import "bootstrap/dist/css/bootstrap.css";
 import "./login.css";
 import LoginAuth from "../services/authLogin";
+import AuthRegister from "../services/authRegister";
 
 export function Login() {
   const [typeText, setTypeText] = useState("password");
@@ -58,7 +59,7 @@ export function Login() {
             <div className="form">
               <form className="login-form">
                 <LoginAuth />
-                <button className="btn-login">Registrarse</button>
+                <AuthRegister />
                 <ReCAPTCHA
                   id="gwd-reCAPTCHA_2"
                   sitekey={environment.recaptcha.siteKey}

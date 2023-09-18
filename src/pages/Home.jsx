@@ -12,7 +12,7 @@ export function Home() {
 
   return (
     <div className="contenedor">
-      <h1>Bienvenido {localStorage.getItem("name")} estas logeado</h1>
+      <h1>Bienvenido {localStorage.getItem("username")} estas logeado</h1>
       <button className="buttonLogout" onClick={handleLogout}>
         Logout
       </button>

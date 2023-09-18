@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export const helpHttp = () => {
+
   const customFetch = (endpoint, options) => {
     const defaultHeader = {
       accept: "application/json",
@@ -27,7 +30,7 @@ export const helpHttp = () => {
               status: res.status || "000",
             })
       )
-      .catch((error) => error);
+      .catch((err) => err);
   };
 
   const get = (url, options = {}) => customFetch(url, options);

@@ -39,16 +39,17 @@ function LoginAuth() {
           `${environment.endpoint}/Login?userName=${email}&password=${password}`
         )
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.token !== "" && response.username !== "") {
             localStorage.setItem("token", response.token);
             localStorage.setItem("username", response.username);
-            navigate('/Home')
-          }else {
-            navigate('')
+            navigate("/Home");
+          } else {
           }
         });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

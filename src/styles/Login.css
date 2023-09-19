@@ -1,10 +1,10 @@
-body{
+body {
     width: 100%;
     height: 100%;
     box-sizing: none;
 }
 
-hr{
+hr {
     margin: 5px 0;
 }
 
@@ -45,8 +45,8 @@ hr{
     text-align: center;
 }
 
-.form-control{
-    margin-bottom: 0px;   
+.form-control {
+    margin-bottom: 0px;
     margin: 10px 0 0 0;
     flex: 1;
     padding: 5px 10px;
@@ -77,12 +77,16 @@ hr{
     width: 100%;
     padding: 5px 0;
     color: white;
-    background: #4F7397;
+    background: #0E3A66;
     border-radius: 5px;
     border: none;
     cursor: pointer;
     margin-bottom: 10px;
     font-size: 12px;
+}
+
+.btn-login:hover {
+    background: #4F709C;
 }
 
 .msg-forgot-password {
@@ -93,7 +97,7 @@ hr{
     font-size: 12px;
 }
 
-.msg-forgot-password a{
+.msg-forgot-password a {
     color: #0E3A66;
     text-decoration: none;
 }
@@ -104,18 +108,72 @@ hr{
     margin-top: 15px;
     margin-bottom: 5px;
     cursor: pointer;
-    background-color: #4F7397;
+    background-color: #0E3A66;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 12px;
 }
 
-#gwd-reCAPTCHA_2, #rc-imageselect   {
+.btn-facebook:hover {
+    background-color: #4F7397;
+}
+
+#gwd-reCAPTCHA_2,
+#rc-imageselect {
     transform: scale(0.84);
     transform-origin: 0 0;
 }
 
-.btn-google{
+.btn-google {
     width: 10%;
+}
+
+.alert-error {
+    position: relative;
+    width: 100%;
+    padding: 5px 0;
+    color: white;
+    background: #dc3545;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.alert {
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Menos de 480px */
+
+@media screen and (width <=479px) {
+    .contenedorLogin {
+        width: 80%;
+    }
+
+    #gwd-reCAPTCHA_2,
+    #rc-imageselect {
+        transform: scale(0.7);
+        transform-origin: 0 0;
+    }
+}
+
+@media screen and (width >=480px) and (width <=599px) {
+    .contenedorLogin {
+        width: 60%;
+    }
+}
+
+@media screen and (width >=600px) and (width <=799px) {
+    .contenedorLogin {
+        width: 50%;
+    }
+}
+
+@media screen and (width >=800px) and (width <=1023px) {
+    .contenedorLogin {
+        width: 40%;
+    }
 }

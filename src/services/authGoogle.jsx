@@ -19,7 +19,7 @@ function MyGoogleAuth() {
         locale="es_ES"
         onSuccess={onSuccessGoogle}
         onError={onErrorGoogle}
-        size="large"
+        size="medium"
       />
     </GoogleOAuthProvider>
   );

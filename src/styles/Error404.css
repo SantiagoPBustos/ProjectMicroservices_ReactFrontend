@@ -1,0 +1,52 @@
+.principal-container {
+    background-image: url(../assets/bg-login.jpg);
+    background-size: cover;
+    margin: 0;
+    padding: 50px;
+    height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+}
+
+img {
+    width: 40%;
+}
+
+.container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    color: rgb(233, 238, 245);
+    font-size: 20px;
+    padding: 30px;
+    margin: 0;
+}
+
+.btn {
+    position: relative;
+    padding: 13px 30px;
+    color: white;
+    background: #4F709C;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.btn:hover {
+    background: rgb(47,46,65);
+    color: white;
+}
+
+
+@media screen and (max-width:630px) {
+    h1 {
+        font-size: 16px;
+    }
+}

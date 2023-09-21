@@ -12,7 +12,7 @@ export function Error404() {
           pagina de inicio!
         </h1>
         <div>
-          <a className="btn" href="/">
+          <a className="btn" href="/Home">
             Ir a la pagina principal
           </a>
         </div>

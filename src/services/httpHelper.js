@@ -21,8 +21,6 @@ export const helpHttp = () => {
         res.ok
           ? res.json()
           : Promise.reject({
-              token: "",
-              username: "",
               error: true,
               status: res.status || "000",
             })

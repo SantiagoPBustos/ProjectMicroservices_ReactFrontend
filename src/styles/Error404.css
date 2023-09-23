@@ -5,6 +5,7 @@
     padding: 50px;
     height: 100vh;
     font-family: 'Open Sans', sans-serif;
+    display: flex;
 }
 
 img {
@@ -36,7 +37,7 @@ img {
     border: none;
     cursor: pointer;
     margin-bottom: 10px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .btn:hover {

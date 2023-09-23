@@ -15,6 +15,7 @@ export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [captcha, setCaptcha] = useState("");
 
   const togglePasswordVisibility = () => {
     if (typeText === "password") {
@@ -34,30 +35,34 @@ export function Login() {
     setPassword(e.target.value);
   };
 
+  const onChangeCaptcha = (value) => {
+    setCaptcha(value);
+    console.log("Captcha value:", value);
+  };
+
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await helpHttp()
-      .post(
-        `${environment.endpoint}/Login?userName=${email}&password=${password}`
-      )
-      .then((response) => {
-        console.log(response);
-        if (response.error !== true) {
+    if (captcha !== "") {
+      await helpHttp()
+        .post(
+          `${environment.endpoint}/Login?userName=${email}&password=${password}`
+        )
+        .then((response) => {
           if (response.token !== "" && response.username !== "") {
             localStorage.setItem("token", response.token);
             localStorage.setItem("username", response.username);
+            console.log(response);
             navigate("/Home");
           }
-        }
-      })
-      .catch(setError(true));
+        })
+        .catch(setError(true));
+    } else {
+      console.log("NO CAPTCHA");
+      setError(true)
+    }
   }
-
-  const onChangeCaptcha = (value) => {
-    console.log("Captcha value:", value);
-  };
 
   return (
     <>

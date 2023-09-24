@@ -90,7 +90,7 @@ export const AuthEmail = () => {
         onClick={togglePasswordVisibility}
       ></i>
       <p className="msg-forgot-password">
-        <a href="#">Olvido su contraseña?</a>
+        <a href="#">Cambiar Contraseña</a>
       </p>
       <button onClick={handleSubmit} className="btn-login">
         Entrar

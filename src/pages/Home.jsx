@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import "../styles/Home.css";
 
-export function Home() {
+export const Home = () => {
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     localStorage.removeItem("username");
     navigate("/");
   };
@@ -18,6 +17,6 @@ export function Home() {
       </button>
     </div>
   );
-}
+};
 
 export default Home;

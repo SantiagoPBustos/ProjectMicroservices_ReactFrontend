@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { sessionContext } from "../context/SessionContext";
+
 export const helpHttp = () => {
+  const { setStateError } = useContext(sessionContext);
+
   const customFetch = (endpoint, options) => {
     const defaultHeader = {
       accept: "application/json",
@@ -21,11 +26,15 @@ export const helpHttp = () => {
         res.ok
           ? res.json()
           : Promise.reject({
+              token: "",
+              username: "",
               error: true,
               status: res.status || "000",
             })
       )
-      .catch((err) => err);
+      .catch(() => {
+        setStateError();
+      });
   };
 
   const get = (url, options = {}) => customFetch(url, options);

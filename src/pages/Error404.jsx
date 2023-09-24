@@ -1,8 +1,6 @@
 import background from "../assets/bg-404.svg";
-import "bootstrap/dist/css/bootstrap.css";
-import "../styles/Error404.css";
 
-export function Error404() {
+export const Error404 = () => {
   return (
     <div className="principal-container">
       <div className="container">
@@ -19,6 +17,6 @@ export function Error404() {
       </div>
     </div>
   );
-}
+};
 
 export default Error404;

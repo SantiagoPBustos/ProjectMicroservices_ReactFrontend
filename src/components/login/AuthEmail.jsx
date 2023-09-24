@@ -1,12 +1,15 @@
 import React, { useContext, useState } from "react";
 import { sessionContext } from "../../context/SessionContext";
+import { login } from "../../services/HttpLoginRequestService";
 import { environment } from "../../enviroments/enviroment.dev";
-import { helpHttp } from "../../services/httpHelper";
+import { saveToken, saveUser } from "../../utils/localstorage";
 import { useNavigate } from "react-router-dom";
 
 export const AuthEmail = () => {
   const [typeText, setTypeText] = useState("password");
   const [eyePassword, setEyePassword] = useState("-slash");
+
+  const nav = useNavigate();
 
   const togglePasswordVisibility = () => {
     if (typeText === "password") {
@@ -18,31 +21,48 @@ export const AuthEmail = () => {
     }
   };
 
-  const { captcha, email, handleChangeEmail, password, handleChangePassword } =
-    useContext(sessionContext);
+  const {
+    handleChangeEmail,
+    handleChangePassword,
+    captcha,
+    onChangeCaptcha,
+    email,
+    password,
+    setStateError,
+  } = useContext(sessionContext);
 
-  const navigate = useNavigate();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (captcha !== "" && captcha !== "NoCaptcha") {
+      const options = {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+        },
+      };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (captcha !== "") {
-      await helpHttp()
-        .post(
-          `${environment.endpoint}/Login?userName=${email}&password=${password}`
-        )
+      login(
+        `${environment.endpoint}/Login?userName=${email}&password=${password}`,
+        options
+      )
         .then((response) => {
-          if (response.token !== "" && response.username !== "") {
-            localStorage.setItem("token", response.token);
-            localStorage.setItem("username", response.username);
-            console.log(response);
-            navigate("/Home");
+          console.log(response);
+          if (response.error === false) {
+            saveToken(response.token);
+            saveUser(response.user);
+            nav("/Home");
+          } else {
+            setStateError();
+            console.log("1");
           }
         })
-        .catch(console.log("ERROR PROMISE"));
+        .catch((err) => {
+          setStateError();
+        });
     } else {
-      console.log("NO CAPTCHA");
+      onChangeCaptcha("NoCaptcha");
     }
-  }
+  };
 
   return (
     <>

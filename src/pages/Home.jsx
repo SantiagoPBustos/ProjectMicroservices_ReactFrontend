@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { removeToken, removeUser } from "../utils/localstorage";
 
 export const Home = () => {
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
+    removeToken();
+    removeUser();
     navigate("/");
   };
 

@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
 import Captcha from "../components/login/Captcha";
 import AuthEmail from "../components/login/AuthEmail";
-
 import MyGoogleAuth from "../services/authGoogle";
 import MyFacebookAuth from "../services/authFacebook";
 import AuthRegister from "../services/authRegister";
-import { sessionContext } from "../context/SessionContext";
+import ErrorMessageLogin from "../components/login/ErrorMessageLogin";
+import SessionStateProvider from "../components/providers/SessionStateProvider.jsx";
 
 export const Login = () => {
-  const { errorServer } = useContext(sessionContext);
   return (
-    <>
+    <SessionStateProvider>
       <div className="principalContainer">
         <div className="contenedorLogin">
           <div className="divFormulario">
@@ -25,15 +23,11 @@ export const Login = () => {
                 <MyFacebookAuth />
               </form>
             </div>
-            {errorServer === true && (
-              <div className="alert alert-danger p-1">
-                ¡Tenemos problemas para conectarnos con el servidor!
-              </div>
-            )}
+            <ErrorMessageLogin />
           </div>
         </div>
       </div>
-    </>
+    </SessionStateProvider>
   );
 };
 

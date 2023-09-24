@@ -3,6 +3,7 @@ import { environment } from "../enviroments/enviroment.dev";
 import jwt_decode from "jwt-decode";
 
 const onSuccessGoogle = (credentialResponse) => {
+  console.log(credentialResponse.credential);
   var credentialResponseDecode = jwt_decode(credentialResponse.credential);
   console.log(credentialResponseDecode);
 };

@@ -1,12 +1,7 @@
-import SessionStateProvider from "./components/providers/SessionStateProvider.jsx";
 import AppRouter from "./router/AppRouter.jsx";
 
 function App() {
-  return (
-    <SessionStateProvider>
-      <AppRouter></AppRouter>
-    </SessionStateProvider>
-  );
+  return <AppRouter></AppRouter>;
 }
 
 export default App;

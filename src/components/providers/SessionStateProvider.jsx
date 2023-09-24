@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { sessionContext } from "../../context/SessionContext";
 
 const SessionStateProvider = ({ children }) => {
-  const [errorServer, setErrorServer] = useState(false);
+  const [errorLogin, setErrorLogin] = useState(false);
   const [captcha, setCaptcha] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const setStateError = () => {
-    setErrorServer(true);
+    setErrorLogin(true);
   };
 
   const onChangeCaptcha = (key) => {
@@ -26,7 +26,7 @@ const SessionStateProvider = ({ children }) => {
   return (
     <sessionContext.Provider
       value={{
-        errorServer,
+        errorLogin,
         setStateError,
         captcha,
         onChangeCaptcha,

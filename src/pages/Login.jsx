@@ -1,6 +1,6 @@
 import Captcha from "../components/login/Captcha";
 import AuthEmail from "../components/login/AuthEmail";
-import MyGoogleAuth from "../services/authGoogle";
+import AuthGoogle from "../components/login/AuthGoogle";
 import MyFacebookAuth from "../services/authFacebook";
 import AuthRegister from "../services/authRegister";
 import ErrorMessageLogin from "../components/login/ErrorMessageLogin";
@@ -19,7 +19,7 @@ export const Login = () => {
                 <AuthRegister />
                 <Captcha />
                 <hr />
-                <MyGoogleAuth />
+                <AuthGoogle />
                 <MyFacebookAuth />
               </form>
             </div>

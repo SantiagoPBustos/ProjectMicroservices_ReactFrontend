@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { removeToken, removeUser } from "../utils/localstorage";
+import { getUser, removeToken, removeUser } from "../utils/localstorage";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export const Home = () => {
 
   return (
     <div className="contenedor">
-      <h1>Bienvenido {localStorage.getItem("username")} estas logeado</h1>
+      <h1>Bienvenido {getUser()} estas logeado</h1>
       <button className="buttonLogout" onClick={handleLogout}>
         Logout
       </button>

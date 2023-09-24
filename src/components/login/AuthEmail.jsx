@@ -34,6 +34,7 @@ export const AuthEmail = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (captcha !== "" && captcha !== "NoCaptcha") {
+      const url = `${environment.endpoint}/Login?userName=${email}&password=${password}`;
       const options = {
         method: "POST",
         headers: {
@@ -41,22 +42,17 @@ export const AuthEmail = () => {
         },
       };
 
-      login(
-        `${environment.endpoint}/Login?userName=${email}&password=${password}`,
-        options
-      )
+      login(url, options)
         .then((response) => {
-          console.log(response);
           if (response.error === false) {
             saveToken(response.token);
             saveUser(response.user);
             nav("/Home");
           } else {
             setStateError();
-            console.log("1");
           }
         })
-        .catch((err) => {
+        .catch(() => {
           setStateError();
         });
     } else {

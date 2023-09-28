@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { sessionContext } from "../../context/SessionContext";
 
 const SessionStateProvider = ({ children }) => {
@@ -6,6 +6,7 @@ const SessionStateProvider = ({ children }) => {
   const [captcha, setCaptcha] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const recaptcha = useRef(null);
 
   const setStateError = () => {
     setErrorLogin(true);

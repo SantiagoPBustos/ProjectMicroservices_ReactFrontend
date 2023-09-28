@@ -3,6 +3,7 @@ import { Error404 } from "../pages/Error404";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Register from "../pages/Register";
 
 export const AppRouter = () => {
   return (
@@ -10,6 +11,7 @@ export const AppRouter = () => {
       <Route index element={<Login />} />
       <Route path="" element={<Login />} />
       <Route path="/" element={<Login />} />
+      <Route path="/Register" element={<Register />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="/Home" element={<Home />} />
       </Route>

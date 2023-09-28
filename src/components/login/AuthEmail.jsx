@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { sessionContext } from "../../context/SessionContext";
 import { login } from "../../services/HttpLoginRequestService";
 import { environment } from "../../enviroments/enviroment.dev";
@@ -59,7 +59,6 @@ export const AuthEmail = () => {
       onChangeCaptcha("NoCaptcha");
     }
   };
-
   return (
     <>
       <input
@@ -92,7 +91,7 @@ export const AuthEmail = () => {
       <p className="msg-forgot-password">
         <a href="#">Cambiar Contraseña</a>
       </p>
-      <button onClick={handleSubmit} className="btn-login">
+      <button id="login" onClick={handleSubmit} className="btn-login">
         Entrar
       </button>
     </>

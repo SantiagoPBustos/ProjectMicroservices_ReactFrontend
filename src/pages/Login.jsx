@@ -1,10 +1,10 @@
 import Captcha from "../components/login/Captcha";
 import AuthEmail from "../components/login/AuthEmail";
+import AuthRegister from "../components/login/authRegister";
 import AuthGoogle from "../components/login/AuthGoogle";
-import MyFacebookAuth from "../services/authFacebook";
-import AuthRegister from "../services/authRegister";
 import ErrorMessageLogin from "../components/login/ErrorMessageLogin";
 import SessionStateProvider from "../components/providers/SessionStateProvider.jsx";
+import MyFacebookAuth from "../services/authFacebook";
 
 export const Login = () => {
   return (

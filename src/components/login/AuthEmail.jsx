@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { sessionContext } from "../../context/SessionContext";
-import { login } from "../../services/HttpLoginRequestService";
+import { post } from "../../services/HttpLoginRequestService";
 import { environment } from "../../enviroments/enviroment.dev";
 import { saveToken, saveUser } from "../../utils/localstorage";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ export const AuthEmail = () => {
         },
       };
 
-      login(url, options)
+      post(url, options)
         .then((response) => {
           if (response.error === false) {
             saveToken(response.token);
@@ -87,7 +87,7 @@ export const AuthEmail = () => {
         className={`fa-lg fa-sharp fa-solid fa-eye${eyePassword}`}
         id="iconEyeSlash"
         onClick={togglePasswordVisibility}
-      ></i>
+      />
       <p className="msg-forgot-password">
         <a href="#">Cambiar Contraseña</a>
       </p>

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { environment } from "../enviroments/enviroment.dev";
+import { parseToDateTimeFormat } from "../utils/DateTimeParser";
+import { post } from "../services/HttpLoginRequestService";
 
 export const Register = () => {
+  const [idUser, setIdUser] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateBorn, setdateBorn] = useState("");
@@ -10,14 +14,61 @@ export const Register = () => {
   const [typeDocument, setTypeDocument] = useState("");
   const [genderUser, setGenderUser] = useState("");
 
+  const [typeText, setTypeText] = useState("password");
+  const [eyePassword, setEyePassword] = useState("-slash");
+
+  const [errorRegisterData, setErrorRegisterData] = useState(false);
+  const [errorRegister, setErrorRegister] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    if (typeText === "password") {
+      setTypeText("text");
+      setEyePassword("");
+    } else {
+      setTypeText("password");
+      setEyePassword("-slash");
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(name);
-    console.log(lastName);
-    console.log(dateBorn);
-    console.log(emailUser);
-    console.log(passwordUser);
-    console.log(typeDocument);
+    if (
+      idUser !== "" &&
+      name !== "" &&
+      lastName !== "" &&
+      dateBorn !== "" &&
+      emailUser !== "" &&
+      passwordUser !== "" &&
+      typeDocument !== "" &&
+      genderUser !== ""
+    ) {
+      const url = `${
+        environment.endpoint
+      }/Login/Register?IdUser=${idUser}&NameUser=${name}&LastNameUser=${lastName}&BirthDate=${parseToDateTimeFormat(
+        dateBorn
+      )}&Email=${emailUser}&TypeDocument=${typeDocument}&Gender=${genderUser}&Password=${passwordUser}`;
+
+      const options = {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+        },
+      };
+
+      post(url, options)
+        .then((response) => {
+          if (response.error === false) {
+            console.log("OK", response);
+          } else {
+            console.log("1", response);
+          }
+        })
+        .catch(() => {
+          console.log("2", response);
+        });
+    } else {
+      setErrorRegisterData(true);
+    }
   };
 
   const nav = useNavigate();
@@ -32,6 +83,17 @@ export const Register = () => {
           <h2 className="textLogin">Registrate</h2>
           <div className="form">
             <form className="login-form">
+              <input
+                type="text"
+                name="numberDocUser"
+                placeholder="Numero de documento"
+                className="form-control form-control-register"
+                id="numberDocUser"
+                onChange={(e) => {
+                  setIdUser(e.target.value);
+                }}
+                autoComplete="on"
+              />
               <input
                 type="text"
                 name="nameUser"
@@ -61,7 +123,8 @@ export const Register = () => {
                 className="form-control form-control-register"
                 id="dateBornUser"
                 onChange={(e) => {
-                  setdateBorn(e.target.value);
+                  console.log(e.target.value);
+                  setdateBorn(e.target);
                 }}
                 autoComplete="on"
               />
@@ -75,6 +138,7 @@ export const Register = () => {
                   setEmailUser(e.target.value);
                 }}
                 autoComplete="on"
+                required
               />
               <label className="label-form-register">Tipo de documento</label>
               <br />
@@ -91,14 +155,13 @@ export const Register = () => {
                 <option value="CE">Cedula de extranjero</option>
                 <option value="PS">Pasaporte</option>
               </select>
-
               <br />
               <label className="label-form-register">Genero</label>
               <br />
               <select
                 className="select-options-forms"
-                name="typeDocument"
-                id="typeDocSelect"
+                name="gender"
+                id="genderSelect"
                 onChange={(e) => {
                   setGenderUser(e.target.value);
                 }}
@@ -108,9 +171,8 @@ export const Register = () => {
                 <option value="F">Femenino</option>
                 <option value="NB">Otro</option>
               </select>
-
               <input
-                type="password"
+                type={typeText}
                 name="passwordUser"
                 placeholder="Contraseña"
                 className="form-control form-control-register"
@@ -119,6 +181,11 @@ export const Register = () => {
                   setPasswordUser(e.target.value);
                 }}
                 autoComplete="on"
+              />{" "}
+              <i
+                className={`fa-lg fa-sharp fa-solid fa-eye${eyePassword}`}
+                id="iconEyeSlashRegister"
+                onClick={togglePasswordVisibility}
               />
               <button
                 onClick={handleSubmit}
@@ -135,6 +202,11 @@ export const Register = () => {
             >
               Volver al inicio
             </button>
+            {errorRegisterData === true && (
+              <div className="alert alert-danger p-1">
+                Oops, Complete todos los campos para registrarse!
+              </div>
+            )}
           </div>
         </div>
       </div>

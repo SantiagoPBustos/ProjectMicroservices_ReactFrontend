@@ -91,6 +91,17 @@ hr {
     font-weight: 500;
 }
 
+#iconEyeSlashRegister {
+    position: absolute;
+    right: 3%;
+    cursor: pointer;
+    top: 78.5%;
+    z-index: 1000;
+    color: "#9ea5ac";
+    font-size: 1em;
+    font-weight: 500;
+}
+
 .btn-login {
     position: relative;
     width: 100%;

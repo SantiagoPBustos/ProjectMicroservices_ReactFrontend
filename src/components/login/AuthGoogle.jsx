@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { environment } from "../../enviroments/enviroment.dev";
-import { loginWhitGoogle } from "../../services/HttpLoginRequestService";
+import { post } from "../../services/HttpLoginRequestService";
 import { sessionContext } from "../../context/SessionContext";
 import { saveToken, saveUser } from "../../utils/localstorage";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ export const AuthGoogle = () => {
         },
       };
 
-      loginWhitGoogle(url, options)
+      post(url, options)
         .then((response) => {
           console.log(response);
           if (response.error === false) {

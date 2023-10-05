@@ -95,7 +95,7 @@ hr {
     position: absolute;
     right: 3%;
     cursor: pointer;
-    top: 78.5%;
+    top: 82%;
     z-index: 1000;
     color: "#9ea5ac";
     font-size: 1em;
@@ -130,6 +130,18 @@ hr {
 .msg-forgot-password a {
     color: #0E3A66;
     text-decoration: none;
+}
+
+.back-to-login {
+    font-style: normal;
+    margin: 5px 0;
+    padding: 0;
+    font-size: 13px;
+}
+
+.back-to-login a {
+    color: #0E3A66;
+    text-align: center;
 }
 
 .btn-facebook {
@@ -168,6 +180,22 @@ hr {
 .alert {
     font-size: 12px;
     text-align: center;
+}
+
+.select-container {
+    display: flex;
+    width: 100%;
+}
+
+.select-wrapper {
+    flex-grow: 1;
+    /* Los campos de selección ocuparán todo el espacio disponible */
+    margin-right: 10px;
+    /* Espacio entre los campos de selección */
+}
+
+.select-options-forms {
+    width: 100%;
 }
 
 /* Menos de 480px */

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { environment } from "../enviroments/enviroment.dev";
-import { parseToDateTimeFormat } from "../utils/DateTimeParser";
 import { post } from "../services/HttpLoginRequestService";
 
 export const Register = () => {
   const [idUser, setIdUser] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateBorn, setdateBorn] = useState("");
+  const [dayBorn, setDayBorn] = useState("");
+  const [monthBorn, setMonthBorn] = useState("");
+  const [yearBorn, setYearBorn] = useState("");
   const [emailUser, setEmailUser] = useState("");
   const [passwordUser, setPasswordUser] = useState("");
   const [typeDocument, setTypeDocument] = useState("");
@@ -18,7 +18,31 @@ export const Register = () => {
   const [eyePassword, setEyePassword] = useState("-slash");
 
   const [errorRegisterData, setErrorRegisterData] = useState(false);
-  const [errorRegister, setErrorRegister] = useState(false);
+  const [errorServer, setErrorServer] = useState(null);
+
+  const generateDays = () => {
+    const result = [];
+    for (let i = 1; i <= 31; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
+  const generateMonths = () => {
+    const months = [];
+    for (let i = 1; i <= 12; i++) {
+      months.push(i);
+    }
+    return months;
+  };
+
+  const generateYears = (rangoInicial, rangoFinal) => {
+    const years = [];
+    for (let i = rangoInicial; i <= rangoFinal; i++) {
+      years.push(i);
+    }
+    return years;
+  };
 
   const togglePasswordVisibility = () => {
     if (typeText === "password") {
@@ -36,7 +60,9 @@ export const Register = () => {
       idUser !== "" &&
       name !== "" &&
       lastName !== "" &&
-      dateBorn !== "" &&
+      dayBorn !== "" &&
+      monthBorn !== "" &&
+      yearBorn !== "" &&
       emailUser !== "" &&
       passwordUser !== "" &&
       typeDocument !== "" &&
@@ -44,9 +70,9 @@ export const Register = () => {
     ) {
       const url = `${
         environment.endpoint
-      }/Login/Register?IdUser=${idUser}&NameUser=${name}&LastNameUser=${lastName}&BirthDate=${parseToDateTimeFormat(
-        dateBorn
-      )}&Email=${emailUser}&TypeDocument=${typeDocument}&Gender=${genderUser}&Password=${passwordUser}`;
+      }/Login/Register?IdUser=${idUser}&NameUser=${name}&LastNameUser=${lastName}&BirthDate=${
+        dayBorn + `%2F` + monthBorn + `%2F` + yearBorn
+      }&Email=${emailUser}&TypeDocument=${typeDocument}&Gender=${genderUser}&Password=${passwordUser}`;
 
       const options = {
         method: "POST",
@@ -57,23 +83,16 @@ export const Register = () => {
 
       post(url, options)
         .then((response) => {
-          if (response.error === false) {
-            console.log("OK", response);
+          if (response.error === true) {
+            setErrorServer(true);
           } else {
-            console.log("1", response);
+            setErrorServer(false);
           }
         })
-        .catch(() => {
-          console.log("2", response);
-        });
+        .catch((err) => err);
     } else {
       setErrorRegisterData(true);
     }
-  };
-
-  const nav = useNavigate();
-  const handleBackToLogin = () => {
-    nav("/");
   };
 
   return (
@@ -117,17 +136,66 @@ export const Register = () => {
                 autoComplete="on"
               />
               <label className="label-form-register">Fecha de Nacimiento</label>
-              <input
-                type="date"
-                name="dateBorn"
-                className="form-control form-control-register"
-                id="dateBornUser"
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setdateBorn(e.target);
-                }}
-                autoComplete="on"
-              />
+              <br />
+              <div className="select-container">
+                <div className="select-wrapper">
+                  <label className="label-form-register">Dia</label>
+                  <select
+                    className="select-options-forms"
+                    name="day-born"
+                    id="dayborn"
+                    onChange={(e) => {
+                      setDayBorn(e.target.value);
+                    }}
+                  >
+                    <option value=""> - </option>
+                    {generateDays().map((e, i) => (
+                      <option key={i} value={e}>
+                        {e}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="select-wrapper">
+                  <label className="label-form-register">Mes</label>
+                  <select
+                    className="select-options-forms"
+                    name="month-born"
+                    id="month-born"
+                    onChange={(e) => {
+                      setMonthBorn(e.target.value);
+                    }}
+                  >
+                    <option value=""> - </option>
+                    {generateMonths().map((e, i) => (
+                      <option key={i} value={e}>
+                        {e}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="select-wrapper">
+                  <label className="label-form-register">Año</label>
+                  <select
+                    className="select-options-forms"
+                    name="year-born"
+                    id="year-born"
+                    onChange={(e) => {
+                      setYearBorn(e.target.value);
+                    }}
+                  >
+                    <option value=""> - </option>
+                    {generateYears(1950, 2023).map((e, i) => (
+                      <option key={i} value={e}>
+                        {e}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
               <input
                 type="email"
                 name="emailUser"
@@ -181,7 +249,7 @@ export const Register = () => {
                   setPasswordUser(e.target.value);
                 }}
                 autoComplete="on"
-              />{" "}
+              />
               <i
                 className={`fa-lg fa-sharp fa-solid fa-eye${eyePassword}`}
                 id="iconEyeSlashRegister"
@@ -194,20 +262,21 @@ export const Register = () => {
               >
                 Registrarse
               </button>
-            </form>{" "}
-            <button
-              onClick={handleBackToLogin}
-              id="handleBackToLogin"
-              className="btn-login"
-            >
-              Volver al inicio
-            </button>
-            {errorRegisterData === true && (
-              <div className="alert alert-danger p-1">
-                Oops, Complete todos los campos para registrarse!
-              </div>
-            )}
+            </form>
+            <p className="back-to-login">
+              <a href="/">¿Ya tiene una cuenta?</a>
+            </p>
           </div>
+          {errorRegisterData === true && (
+            <div className="alert alert-danger p-1">
+              ¡Oops, Complete todos los campos para registrarse!
+            </div>
+          )}
+          {errorServer === true && (
+            <div className="alert alert-danger p-1">
+              ¡Oops, Ocurrio en error en el registro. Intente Nuevamente!
+            </div>
+          )}
         </div>
       </div>
     </div>

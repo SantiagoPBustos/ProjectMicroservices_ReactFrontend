@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { environment } from "../enviroments/enviroment.dev";
 import { post } from "../services/HttpLoginRequestService";
+import { generateDays, generateMonths, generateYears } from "../utils/Utils";
 
 export const Register = () => {
   const [idUser, setIdUser] = useState("");
@@ -20,30 +21,6 @@ export const Register = () => {
   const [errorRegisterData, setErrorRegisterData] = useState(false);
   const [errorServer, setErrorServer] = useState(null);
 
-  const generateDays = () => {
-    const result = [];
-    for (let i = 1; i <= 31; i++) {
-      result.push(i);
-    }
-    return result;
-  };
-
-  const generateMonths = () => {
-    const months = [];
-    for (let i = 1; i <= 12; i++) {
-      months.push(i);
-    }
-    return months;
-  };
-
-  const generateYears = (rangoInicial, rangoFinal) => {
-    const years = [];
-    for (let i = rangoInicial; i <= rangoFinal; i++) {
-      years.push(i);
-    }
-    return years;
-  };
-
   const togglePasswordVisibility = () => {
     if (typeText === "password") {
       setTypeText("text");
@@ -56,6 +33,8 @@ export const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setErrorRegisterData(false);
+    setErrorRegisterData(null);
     if (
       idUser !== "" &&
       name !== "" &&
@@ -83,10 +62,11 @@ export const Register = () => {
 
       post(url, options)
         .then((response) => {
-          if (response.error === true) {
-            setErrorServer(true);
-          } else {
+          console.log(response);
+          if (response.error === false) {
             setErrorServer(false);
+          } else {
+            setErrorServer(true);
           }
         })
         .catch((err) => err);
@@ -274,7 +254,12 @@ export const Register = () => {
           )}
           {errorServer === true && (
             <div className="alert alert-danger p-1">
-              ¡Oops, Ocurrio en error en el registro. Intente Nuevamente!
+              ¡Oops, Complete todos los campos para registrarse!
+            </div>
+          )}
+          {errorServer === false && (
+            <div className="alert alert-success p-1">
+              ¡Registro completado exitosamente. Inicia Sesion!
             </div>
           )}
         </div>

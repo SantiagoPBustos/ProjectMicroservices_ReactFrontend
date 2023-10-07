@@ -9,6 +9,7 @@ export async function post(endpoint, options) {
         : Promise.reject({
             error: true,
             status: res.status || "000",
+            message: res.json().then((result)=>result),
           })
     )
     .catch((err) => err);

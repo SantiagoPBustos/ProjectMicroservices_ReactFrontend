@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { environment } from "../../enviroments/enviroment.dev";
 import { post } from "../../services/HttpLoginRequestService";
-import { sessionContext } from "../../context/SessionContext";
+import { sessionContext } from "../../context/sessionContext";
 import { saveToken, saveUser } from "../../utils/localstorage";
 import { useNavigate } from "react-router-dom";
 

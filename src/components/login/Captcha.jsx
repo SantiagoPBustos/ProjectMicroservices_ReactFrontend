@@ -1,6 +1,6 @@
 import ReCAPTCHA from "react-google-recaptcha";
 import React, { useContext } from "react";
-import { sessionContext } from "../../context/SessionContext";
+import { sessionContext } from "../../context/sessionContext";
 import { environment } from "../../enviroments/enviroment.dev";
 
 export const Captcha = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sessionContext } from "../../context/SessionContext";
+import { sessionContext } from "../../context/sessionContext";
 
 const SessionStateProvider = ({ children }) => {
   const [errorLogin, setErrorLogin] = useState(false);

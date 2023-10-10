@@ -34,7 +34,7 @@ export const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorRegisterData(false);
-    setErrorRegisterData(null);
+    setErrorServer(null);
     if (
       idUser !== "" &&
       name !== "" &&
@@ -63,10 +63,10 @@ export const Register = () => {
       post(url, options)
         .then((response) => {
           console.log(response);
-          if (response.error === false) {
-            setErrorServer(false);
-          } else {
+          if (response.error === true) {
             setErrorServer(true);
+          } else {
+            setErrorServer(false);
           }
         })
         .catch((err) => err);
@@ -254,12 +254,12 @@ export const Register = () => {
           )}
           {errorServer === true && (
             <div className="alert alert-danger p-1">
-              ¡Oops, Complete todos los campos para registrarse!
+              ¡Oops, Tuvimos problemas con el registro. Verifique los datos!
             </div>
           )}
           {errorServer === false && (
             <div className="alert alert-success p-1">
-              ¡Registro completado exitosamente. Inicia Sesion!
+              ¡Registro completado exitosamente!
             </div>
           )}
         </div>

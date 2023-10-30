@@ -1,6 +1,6 @@
 import Captcha from "../components/login/Captcha";
 import AuthEmail from "../components/login/AuthEmail";
-import AuthRegister from "../components/login/authRegister";
+import AuthRegister from "../components/login/AuthRegister";
 import AuthGoogle from "../components/login/AuthGoogle";
 import ErrorMessageLogin from "../components/login/ErrorMessageLogin";
 import SessionStateProvider from "../components/providers/SessionStateProvider.jsx";

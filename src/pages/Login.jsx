@@ -4,7 +4,6 @@ import AuthRegister from "../components/login/authRegister";
 import AuthGoogle from "../components/login/AuthGoogle";
 import ErrorMessageLogin from "../components/login/ErrorMessageLogin";
 import SessionStateProvider from "../components/providers/SessionStateProvider.jsx";
-import MyFacebookAuth from "../services/authFacebook";
 
 export const Login = () => {
   return (
@@ -17,10 +16,10 @@ export const Login = () => {
               <form className="login-form">
                 <AuthEmail />
                 <AuthRegister />
+                <hr />
                 <Captcha />
                 <hr />
                 <AuthGoogle />
-                <MyFacebookAuth />
               </form>
             </div>
             <ErrorMessageLogin />

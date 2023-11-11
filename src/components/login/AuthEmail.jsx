@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { sessionContext } from "../../context/sessionContext";
 import { post } from "../../services/HttpLoginRequestService";
-import { environment } from "../../enviroments/enviroment.dev";
 import { saveToken, saveUser } from "../../utils/localstorage";
 import { useNavigate } from "react-router-dom";
+import { environmentProduction } from "../../enviroments/enviroment.prod";
 
 export const AuthEmail = () => {
   const [typeText, setTypeText] = useState("password");
@@ -34,7 +34,7 @@ export const AuthEmail = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (captcha !== "" && captcha !== "NoCaptcha") {
-      const url = `${environment.endpoint}/Login?userName=${email}&password=${password}`;
+      const url = `${environmentProduction.endpoint}/Login?userName=${email}&password=${password}`;
       const options = {
         method: "POST",
         headers: {
